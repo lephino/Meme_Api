@@ -1,0 +1,167 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "MemeGrabber",
+    "description" : "MemeGrabber",
+    "version" : "0.1"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/gimme" : {
+      "get" : {
+        "description" : "Gimme will return a random meme uri",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                },
+                "examples" : {
+                  "0" : {
+                    "value" : "{\"postLink\":\"https://redd.it/dy109v\",\"subreddit\":\"memes\",\"title\":\"My first meme uhhh\",\"url\":\"https://i.redd.it/i70iuhunzez31.jpg\"}\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gimme/<subreddit>" : {
+      "get" : {
+        "description" : "get from a specific sub reddit",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                },
+                "examples" : {
+                  "0" : {
+                    "value" : "{\"postLink\":\"https://redd.it/dxzhfd\",\"subreddit\":\"dankmemes\",\"title\":\"This is beyond science.\",\"url\":\"https://i.redd.it/0m4jqr9t3ez31.png\"}\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gimme/{0}" : {
+      "get" : {
+        "description" : "Adding a number on the end of the URI will return that many memes (limit 100)",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                },
+                "examples" : {
+                  "0" : {
+                    "value" : "{\"count\":2,\"memes\":[{\"postLink\":\"https://redd.it/dy3ztd\",\"subreddit\":\"dankmemes\",\"title\":\"pls do something\",\"url\":\"https://i.redd.it/k0mglq61igz31.jpg\"},{\"postLink\":\"https://redd.it/dy2rz7\",\"subreddit\":\"dankmemes\",\"title\":\"Hate it when this happens\",\"url\":\"https://i.redd.it/vn2yxbbryfz31.jpg\"}]}\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gimme/<subreddit>/{0}" : {
+      "get" : {
+        "description" : "You can also specify counts to specific subreddits",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                },
+                "examples" : {
+                  "0" : {
+                    "value" : "{\"count\":2,\"memes\":[{\"postLink\":\"https://redd.it/dy4i9p\",\"title\":\"War crimes\",\"url\":\"https://i.redd.it/ts9auxl8pgz31.jpg\"},{\"postLink\":\"https://redd.it/dy0p3n\",\"title\":\"The sacred texts!\",\"url\":\"https://i.redd.it/h5zaljyzsez31.jpg\"}],\"subreddit\":\"dankmemes\"}\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "postLink" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "subreddit" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "integer"
+          },
+          "memes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200"
+            }
+          }
+        }
+      },
+      "inline_response_200_2_memes" : {
+        "type" : "object",
+        "properties" : {
+          "postLink" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "integer"
+          },
+          "memes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_2_memes"
+            }
+          },
+          "subreddit" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

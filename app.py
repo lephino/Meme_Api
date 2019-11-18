@@ -14,6 +14,9 @@ meme_subreddits = ['memes', 'dankmemes', 'meirl']
 def index():
     return render_template('index.html')
 
+@app.route('/openapi.json')
+def openapi():
+    return app.send_static_file('openapi.json')
 
 @app.route('/gimme')
 @cross_origin()
