@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS, cross_origin
+import os, json
 
 from reddit_handler import *
 
@@ -16,7 +17,10 @@ def index():
 
 @app.route('/openapi.json')
 def openapi():
-    return app.send_static_file('openapi.json')
+    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+    json_url = os.path.join(SITE_ROOT, "static", "openapi.json")
+    data = json.load(open(json_url))
+    return data
 
 @app.route('/gimme')
 @cross_origin()
